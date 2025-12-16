@@ -1,0 +1,8 @@
+{
+  "name": "Shot Timer Pro",
+  "description": "An advanced, offline-first PWA for dynamic shooting enthusiasts (IPSC/IDPA). Features a shot timer, training log with performance analysis, IDPA classifier, and a comprehensive match management system with real-time scoring.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}

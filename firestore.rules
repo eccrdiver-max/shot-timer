@@ -1,0 +1,90 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =====================================================================
+    // FUNZIONI DI UTILITÀ
+    // =====================================================================
+    
+    function isMdOrSo() {
+      return request.auth != null && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['MD', 'SO'];
+    }
+
+    function isMd() {
+      return request.auth != null && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'MD';
+    }
+
+    // =====================================================================
+    // COLLEZIONI GLOBALI (Pubbliche in lettura)
+    // =====================================================================
+
+    // Tutti gli utenti autenticati possono leggere, solo MD/SO possono scrivere.
+    match /clubs/{clubId} {
+      allow read: if request.auth != null;
+      allow write: if isMdOrSo();
+    }
+
+    match /shooters/{shooterId} {
+      allow read: if request.auth != null;
+      allow write: if isMdOrSo();
+    }
+
+    // Tutti gli utenti autenticati possono leggere, solo gli MD possono scrivere.
+    match /official_drills/{drillId} {
+      allow read: if request.auth != null;
+      allow write: if isMd();
+    }
+
+    // Tutti possono leggere gli esercizi della community.
+    match /community_drills/{drillId} {
+       allow read: if request.auth != null;
+       allow create: if request.auth != null && request.resource.data.authorId == request.auth.uid;
+       allow update: if request.auth != null && request.resource.data.downloads == resource.data.downloads + 1;
+    }
+
+
+    // =====================================================================
+    // DATI SPECIFICI DELL'UTENTE (Privati per default)
+    // =====================================================================
+
+    match /users/{userId} {
+      // Regole per il documento del profilo utente
+      allow get: if request.auth != null && request.auth.uid == userId;
+      // Permettiamo a MD e SO di vedere la lista utenti per poterli linkare ai tiratori
+      allow list: if isMdOrSo();
+      allow create: if request.auth != null && request.auth.uid == userId;
+
+      // Un utente può aggiornare il proprio profilo ma non il ruolo o lo stato
+      allow update: if request.auth != null && request.auth.uid == userId
+                    && request.resource.data.role == resource.data.role
+                    && request.resource.data.status == resource.data.status;
+
+      // Un MD può aggiornare qualsiasi profilo utente (inclusi ruolo e stato)
+      allow update: if isMd();
+
+      // --- SOTTOCOLLEZIONI PRIVATE ---
+      // L'accesso a queste collezioni è permesso solo al proprietario del documento {userId}.
+
+      match /drills/{drillId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /weapons/{weaponId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /maintenanceLogs/{logId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      
+      // Regole per le sessioni
+      // CRITICO: Permette a MD e SO di scrivere nella cartella sessioni di ALTRI utenti
+      match /sessions/{sessionId} {
+         allow read: if request.auth != null && request.auth.uid == userId;
+         allow write: if request.auth != null && (request.auth.uid == userId || isMdOrSo());
+      }
+    }
+  }
+}
