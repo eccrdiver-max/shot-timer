@@ -6,6 +6,7 @@ import { useShooterContext } from './ShooterContext';
 import { useTrainingContext } from './TrainingContext';
 import { useAuth } from './AuthContext';
 import { useArmory } from './ArmoryContext';
+import { useExternalSessionContext } from './ExternalSessionContext';
 
 type SyncStatus = 'idle' | 'syncing' | 'success' | 'error';
 
@@ -37,6 +38,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const { syncDrillsFromFirestore, syncSessions } = useTrainingContext();
     const { syncArmoryFromFirestore } = useArmory();
     const { currentUser, fetchAllUsers } = useAuth();
+    const { syncExternalSessions } = useExternalSessionContext();
 
 
     useEffect(() => {
@@ -97,13 +99,17 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
             console.log("Step 5: Syncing sessions...");
             await syncSessions();
 
+            // Step 6: Sync External Sessions
+            console.log("Step 6: Syncing external sessions...");
+            await syncExternalSessions();
+
             setSyncStatus('success');
             setTimeout(() => setSyncStatus('idle'), 3000);
         } catch (error) {
             console.error("Full sync failed", error);
             setSyncStatus('error');
         }
-    }, [syncShooterData, syncDrillsFromFirestore, syncArmoryFromFirestore, syncSessions, fetchAllUsers, syncStatus, currentUser]);
+    }, [syncShooterData, syncDrillsFromFirestore, syncArmoryFromFirestore, syncSessions, syncExternalSessions, fetchAllUsers, syncStatus, currentUser]);
     
 
     const value = {

@@ -12,6 +12,7 @@ import { NotificationProvider } from './context/NotificationContext';
 import { I18nProvider } from './context/I18nContext';
 import { P2PProvider } from './context/P2PContext';
 import { ArmoryProvider } from './context/ArmoryContext';
+import { ExternalSessionProvider } from './context/ExternalSessionContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -25,9 +26,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                   <ClassifierProvider>
                     <MatchProvider>
                       <P2PProvider>
-                        <AppProvider>
-                          <App />
-                        </AppProvider>
+                        <ExternalSessionProvider>
+                          <AppProvider>
+                            <App />
+                          </AppProvider>
+                        </ExternalSessionProvider>
                       </P2PProvider>
                     </MatchProvider>
                   </ClassifierProvider>

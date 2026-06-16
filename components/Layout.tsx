@@ -14,6 +14,7 @@ import ShootersView from './ShootersView';
 import ArmoryView from './ArmoryView';
 import SettingsView from './SettingsView';
 import HeadToHeadView from './HeadToHeadView';
+import ExternalDiaryView from './ExternalDiaryView';
 
 const NavLink: React.FC<{
     currentView: AppView;
@@ -149,6 +150,7 @@ const Layout: React.FC = () => {
             case AppView.MATCHES: return <MatchView />;
             case AppView.SHOOTERS: return <ShootersView />;
             case AppView.ARMORY: return <ArmoryView />;
+            case AppView.EXTERNAL_DIARY: return <ExternalDiaryView />;
             case AppView.SETTINGS: return <SettingsView />;
             case AppView.HEAD_TO_HEAD: return <HeadToHeadView />;
             default: return <DashboardView />;
@@ -199,6 +201,7 @@ const Layout: React.FC = () => {
                                 </>
                             )}
                              {currentUser?.role !== UserRole.MD && <NavLink currentView={view} targetView={AppView.ARMORY} onClick={handleSetView}>{t('nav_armory')}</NavLink>}
+                             <NavLink currentView={view} targetView={AppView.EXTERNAL_DIARY} onClick={handleSetView}>{t('nav_external_diary')}</NavLink>
                              <NavLink currentView={view} targetView={AppView.SETTINGS} onClick={handleSetView}>{t('nav_settings')}</NavLink>
                         </nav>
                         <div className="mt-auto p-2">
@@ -256,6 +259,7 @@ const Layout: React.FC = () => {
                             </>
                         )}
                         {currentUser?.role !== UserRole.MD && <NavLink currentView={view} targetView={AppView.ARMORY} onClick={handleMobileClick}>{t('nav_armory')}</NavLink>}
+                        <NavLink currentView={view} targetView={AppView.EXTERNAL_DIARY} onClick={handleMobileClick}>{t('nav_external_diary')}</NavLink>
                         <NavLink currentView={view} targetView={AppView.SETTINGS} onClick={handleMobileClick}>{t('nav_settings')}</NavLink>
                          <div className="pt-4 pb-3 border-t border-gray-700">
                              <SyncButton />
@@ -287,6 +291,9 @@ const Layout: React.FC = () => {
                     {currentUser?.role !== UserRole.MD && <BottomNavLink currentView={view} targetView={AppView.ARMORY} onClick={handleSetView} icon={
                         <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"></path></svg>
                     } label={t('nav_armory')} />}
+                    <BottomNavLink currentView={view} targetView={AppView.EXTERNAL_DIARY} onClick={handleSetView} icon={
+                        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    } label={t('nav_external_diary')} />
                     {isMdOrSo && (
                         <BottomNavLink currentView={view} targetView={AppView.SHOOTERS} onClick={handleSetView} icon={
                             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.653-.124-1.282-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.653.124-1.282.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>

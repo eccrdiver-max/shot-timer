@@ -425,5 +425,17 @@
   "saved_local_only": "Salvato localmente. La sincronizzazione con il Cloud è fallita.",
   "h2h_current_standings": "Classifica Parziale",
   "session_pushed_to_shooter": "Dati sessione inviati all'account di {{name}}!",
-  "error_pushing_to_shooter": "Impossibile inviare i dati all'account del tiratore."
+  "error_pushing_to_shooter": "Impossibile inviare i dati all'account del tiratore.",
+  "nav_external_diary": "Diario Esterno",
+  "external_diary_title": "Diario Sessioni Esterne",
+  "external_diary_subtitle": "Registra manualmente le sessioni effettuate senza il timer dell'app.",
+  "add_external_session": "Aggiungi Sessione Manuale",
+  "external_session_saved": "Sessione esterna salvata con successo!",
+  "external_session_deleted": "Sessione esterna eliminata con successo.",
+  "delete_external_session_title": "Eliminare Sessione Esterna?",
+  "delete_external_session_body": "Sei sicuro di voler eliminare questa sessione manuale?",
+  "select_drill": "Seleziona Esercizio",
+  "no_external_sessions": "Nessuna sessione esterna registrata. Aggiungine una per iniziare a tracciare i tuoi progressi!",
+  "total_time": "Tempo Totale",
+  "chart_progress_for": "Progresso per {{drillName}}"
 }

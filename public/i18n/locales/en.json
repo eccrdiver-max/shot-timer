@@ -424,5 +424,17 @@
   "saved_local_only": "Saved locally. Cloud sync failed.",
   "h2h_current_standings": "Current Standings",
   "session_pushed_to_shooter": "Session data pushed to {{name}}'s account!",
-  "error_pushing_to_shooter": "Failed to push data to shooter account."
+  "error_pushing_to_shooter": "Failed to push data to shooter account.",
+  "nav_external_diary": "External Diary",
+  "external_diary_title": "External Sessions Diary",
+  "external_diary_subtitle": "Manually log sessions performed without the app's timer.",
+  "add_external_session": "Add Manual Session",
+  "external_session_saved": "External session saved successfully!",
+  "external_session_deleted": "External session deleted successfully.",
+  "delete_external_session_title": "Delete External Session?",
+  "delete_external_session_body": "Are you sure you want to delete this manual session?",
+  "select_drill": "Select Drill",
+  "no_external_sessions": "No external sessions logged. Add one to start tracking your progress!",
+  "total_time": "Total Time",
+  "chart_progress_for": "Progress for {{drillName}}"
 }

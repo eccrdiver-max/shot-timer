@@ -1,5 +1,5 @@
 import Dexie, { type Table } from 'dexie';
-import { Settings, Session, Drill, Shooter, Club, Weapon, ClassifierAttempt, Match, MaintenanceLog } from '../types';
+import { Settings, Session, Drill, Shooter, Club, Weapon, ClassifierAttempt, Match, MaintenanceLog, ExternalSession } from '../types';
 
 export class ShotTimerProDB extends Dexie {
     settings!: Table<Settings, number>;
@@ -12,6 +12,7 @@ export class ShotTimerProDB extends Dexie {
     classifierAttempts!: Table<ClassifierAttempt, string>;
     matches!: Table<Match, string>;
     maintenanceLogs!: Table<MaintenanceLog, string>;
+    externalSessions!: Table<ExternalSession, string>;
 
     constructor() {
         super('ShotTimerProDB');
@@ -27,6 +28,10 @@ export class ShotTimerProDB extends Dexie {
             classifierAttempts: '&id, date, shooterId, classifierId',
             matches: '&id, name, updatedAt',
             maintenanceLogs: '&id, weaponId, date'
+        });
+        
+        (this as Dexie).version(5).stores({
+            externalSessions: '&id, date, drillName'
         });
     }
 }

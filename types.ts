@@ -8,7 +8,8 @@ export enum AppView {
     ARMORY = 'armory',
     SETTINGS = 'settings',
     HEAD_TO_HEAD = 'head_to_head',
-    SHOOTER_HISTORY = 'shooter_history'
+    SHOOTER_HISTORY = 'shooter_history',
+    EXTERNAL_DIARY = 'external_diary'
 }
 
 export interface Settings {
@@ -38,6 +39,16 @@ export interface Session {
     pointsDown?: number;
     procedurals?: number;
     hnt?: number;
+    updatedAt?: number;
+}
+
+export interface ExternalSession {
+    id: string;
+    date: number;
+    drillName: string;
+    totalTime: number;
+    penalties: number;
+    notes?: string;
     updatedAt?: number;
 }
 
