@@ -1,9 +1,8 @@
 
-const CACHE_NAME = 'shot-timer-pro-cache-v26'; // Version bump to trigger update
+const CACHE_NAME = 'shot-timer-pro-cache-v28'; // Version bump to trigger update
 const urlsToCache = [
   './',
   './index.html',
-  './index.tsx', // Critical: Cache the main app script
   './manifest.json',
   './favicon.svg'
 ];
